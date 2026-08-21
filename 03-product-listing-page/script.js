@@ -1,6 +1,8 @@
 //DOM elements
 const list = document.querySelector("#list")
 const loadingError = document.querySelector("#loading-error")
+const cartBtn = document.querySelector("#cart-button")
+let cart = [];
 
 loadProducts()
 async function loadProducts() {
@@ -31,8 +33,8 @@ function renderProducts(products) {
     if(products.length === 0) {
         loadingError.textContent = "No products found"
     }
-    products.map(element => {
-        createProductCard(element.id, element.title, element.description, element.stock, element.rating, element.thumbnail)
+    products.map(p => {
+        createProductCard(p.id, p.title, p.description, p.stock, p.rating, p.thumbnail)
     })
 }
 function renderLoading() {
@@ -81,15 +83,24 @@ function createProductCard(productId, productTitle, productDes, productStock, pr
     stockrating.append(stock, rating)
 
     addBtn.addEventListener('click', (e) => {
-        console.log({
+        cart.push({
             id:productId,
-            title:productTitle,
-            description:productDes,
-            stock:productStock,
-            rating:productRating,
+            title:productTitle
         })
+
+        localStorage.setItem("cart", JSON.stringify(cart))
     })
 }
+
+cartBtn.addEventListener('click', () => {
+    let cartDetails = JSON.parse(localStorage.getItem("cart"));
+    // cartDetails = cartDetails ? cartDetails : "0 items added"
+    let numberItems = cartDetails ? `${cartDetails.length} items added` : "0 items added"
+    console.log(numberItems)
+    console.log(cartDetails)
+})
+
+
 
 
 
