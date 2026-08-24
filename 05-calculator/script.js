@@ -5,23 +5,26 @@ let displayedExp = ""
 buttons.forEach(button => {
     button.addEventListener('click', (e) => {
         let currentChar = e.target.textContent
+
         if (currentChar === "CE") {
             displayedExp = ""
             displayScreen.value = displayedExp
             return
         }
+
         if (currentChar === "=") {
             //calculation
             let result = calculation(displayedExp)
-            displayedExp = ""
+            displayedExp = String(result)
             displayScreen.value = result
             return
         }
+
         displayedExp = displayedExp + (currentChar);
-        if(currentChar === '/' || currentChar === '*' || currentChar === '-' || currentChar === '+' || currentChar === '%'){
-            return;
-        }
-        displayScreen.value = currentChar
+        // if(currentChar === '/' || currentChar === '*' || currentChar === '-' || currentChar === '+' || currentChar === '%'){
+        //     return;
+        // }
+        displayScreen.value = displayedExp
     });
 });
 
@@ -117,7 +120,7 @@ function calculate(postfix) {
                 break;
             case '/':
                 if (a === 0)
-                    throw new Error("Division by zero error")
+                    return "Error"
                 stack.push(b / a);
                 break;
             case '%':
@@ -131,7 +134,6 @@ function calculate(postfix) {
 
 
 //scope of improvement
-//multi input 2 + 1 = 3 + 6 = Nan arha hain usko calc karna hain
 //2/0 should return error
 //not able to style 100 or 10
 //2 + (3) = NaN
