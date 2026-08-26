@@ -1,28 +1,27 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 
+const LIMIT = 100;
+
 function App() {
-  const [count, setCount] = useState(0)
   const [value, setValue] = useState('')
-  const [disabled, setDisabled] = useState(false)
+
+  const count = value.length;
+  const exceeded = count > LIMIT;
 
   function handleText(e) {
     setValue(e.target.value)
-    setCount(e.target.value.length)
-    if (e.target.value.length >= 100) {
-      setDisabled(true);
-      console.log("Limit exceeded")
-    }
   }
 
   useEffect(() => {
-    document.title = value;
-  }, [value])
+    document.title = `Characters: ${LIMIT - count}/${LIMIT}`;
+  }, [count])
 
   return (
     <div>
-      <input type='text' name='myText' value={value} onChange={(e) => handleText(e)} disabled={disabled} />
-      <div>{count}/100</div>
+      <input type='text' name='myText' value={value} onChange={(e) => handleText(e)} maxLength={100} />
+      <div>{count}/{LIMIT}</div>
+      {exceeded && <div>Limit Exceeded</div>}
     </div>
   )
 }
