@@ -34,3 +34,5 @@ function Accordian() {
 }
 
 export default Accordian
+
+//id, title, description -> JSON/JS
