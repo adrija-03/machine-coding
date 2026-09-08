@@ -42,16 +42,12 @@ function createLi(name) {
 function renderProductsOnSearch(character) {
     listProds.innerHTML = "";
     let matches = products.filter((element) => {
-        element.title.toLowerCase().includes(character.toLowerCase())
+        return element.title.toLowerCase().includes(character.toLowerCase())
     })
-    matches.forEach((element) => {
-        return createLi(element.title)
-    })
-    console.log(matches)
+    matches.forEach((element) => createLi(element.title) )
 }
 
 search.addEventListener("input", () => {
-    console.log(search.value)
     // renderProductsOnSearch(search.value)
     debouncedSearch(search.value)
 })
