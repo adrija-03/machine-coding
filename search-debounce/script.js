@@ -3,34 +3,34 @@ const search = document.querySelector("#search-product")
 
 let products = []
 
-async function loadProducts() {
-    // renderLoadingState()
-    try{
-        const data = await getProducts();
-        renderProducts(data.products)
-        products = data.products
-    } catch(error) {
-        // renderErrorState();
-    }
-}
+// async function loadProducts() {
+//     // renderLoadingState()
+//     try{
+//         const data = await getProducts();
+//         renderProductsOnSearch(data.products, )
+//         products = data.products
+//     } catch(error) {
+//         // renderErrorState();
+//     }
+// }
 
 async function getProducts() {
     const response = await fetch("https://dummyjson.com/products");
-    if(!response.ok) {
+    if (!response.ok) {
         throw new Error("Error")
     }
     const data = response.json();
     return data;
 }
 
-loadProducts()
+renderProductsOnSearch("")
 
 function renderProducts(products) {
-    console.log(products)
+    listProds.innerHTML = "";
     let list = products.map((element) => {
         createLi(element.title)
         return element.title;
-    })    
+    })
 }
 
 function createLi(name) {
@@ -39,16 +39,23 @@ function createLi(name) {
     listProds.appendChild(product)
 }
 
-function renderProductsOnSearch(character) {
-    listProds.innerHTML = "";
-    let matches = products.filter((element) => {
-        return element.title.toLowerCase().includes(character.toLowerCase())
-    })
-    matches.forEach((element) => createLi(element.title) )
+async function renderProductsOnSearch(character) {
+    // renderLoadingState()
+    try {
+        listProds.innerHTML = "";
+        const data = await getProducts();
+        products = data.products;
+        let matches = products.filter((element) => {
+            return element.title.toLowerCase().includes(character.toLowerCase())
+        })
+        matches.forEach((element) => createLi(element.title))
+    } catch (error) {
+        // renderErrorState();
+    }
+    
 }
 
 search.addEventListener("input", () => {
-    // renderProductsOnSearch(search.value)
     debouncedSearch(search.value)
 })
 
@@ -58,6 +65,7 @@ function debounce(fn, delay) {
         clearTimeout(timer)
         timer = setTimeout(() => {
             fn.apply(this, args)
+            console.log("this", args)
         }, delay);
     }
 }
