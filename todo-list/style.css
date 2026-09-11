@@ -1,0 +1,22 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.todo-container {
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: 100vh; */
+    flex-direction: column;
+}
+
+.input-block {
+    margin-top: 50px;
+}
+
+.todo-list-ui {
+    margin-top: 35px;
+}
