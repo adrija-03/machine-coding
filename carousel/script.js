@@ -9,53 +9,47 @@ const imagArry = ["https://cdn.dummyjson.com/product-images/beauty/essence-masca
     "https://cdn.dummyjson.com/product-images/beauty/powder-canister/thumbnail.webp",
     "https://cdn.dummyjson.com/product-images/beauty/red-lipstick/thumbnail.webp",
     "https://cdn.dummyjson.com/product-images/beauty/red-nail-polish/thumbnail.webp"]
+
 let currentVal = 0;
 
 mainItem.src = imagArry[currentVal];
 
 prev.addEventListener('click', () => {
-    if (Number(currentVal) === 0)
-        currentVal = imagArry.length - 1;
-    else
-        currentVal--;
+    currentVal = (currentVal === 0) ? (imagArry.length - 1) : currentVal - 1;
     mainItem.src = imagArry[currentVal];
-    clearInterval(autoplay)
-    startAutoplay()
+    restartAutoplay()
 })
 
 next.addEventListener('click', () => {
-    if (Number(currentVal) === (imagArry.length - 1))
-        currentVal = 0;
-    else
-        currentVal++
+    currentVal = (currentVal === (imagArry.length - 1)) ? 0 : currentVal + 1;
     mainItem.src = imagArry[currentVal];
-    clearInterval(autoplay)
-    startAutoplay()
+    restartAutoplay()
 })
 
 imagArry.forEach((ele, x) => {
     const dot = document.createElement('button')
-    dot.textContent = 0;
+    dot.textContent = 'o';
     dot.id = x;
     carouselDots.appendChild(dot)
 
     dot.addEventListener('click', (e) => {
-        currentVal = e.currentTarget.id
+        currentVal = Number(e.currentTarget.id)
         mainItem.src = imagArry[currentVal]
-        clearInterval(autoplay)
-        startAutoplay()
+        restartAutoplay()
     })
 })
 
 function startAutoplay() {
     autoplay = setInterval(() => {
-        if (Number(currentVal) === (imagArry.length - 1))
-            currentVal = 0;
-        else
-            currentVal++;
+        currentVal = (currentVal === (imagArry.length - 1)) ? 0 : currentVal + 1;
         mainItem.src = imagArry[currentVal]
     }, 5000)
 }
 
 startAutoplay();
+
+function restartAutoplay() {
+    clearInterval(autoplay)
+    startAutoplay()
+}
 
