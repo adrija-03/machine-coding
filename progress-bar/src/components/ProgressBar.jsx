@@ -13,7 +13,7 @@ function ProgressBar() {
         <div className="flex justify-center items-center gap-5 h-full m-5">
             <div className="w-full h-6 bg-[#eee] rounded-full">
                 <div
-                    className="bg-[#00FF00] rounded-full h-full"
+                    className="bg-[#00FF00] rounded-full h-full transition-all duration-200 ease-linear"
                     style={{ width: `${progress}%` }}></div>
             </div>
             <button
