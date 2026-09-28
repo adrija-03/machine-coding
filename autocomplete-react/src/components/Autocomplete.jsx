@@ -36,11 +36,11 @@ function Autocomplete() {
                 onFocus={() => setShowList(true)}
                 onBlur={() => setShowList(false)}
                 placeholder="food" />
-            <div className="bg-gray-900 text-white p-4 overflow-y-auto max-h-60 rounded-md">
+            {showList && <div className="bg-gray-900 text-white p-4 overflow-y-auto max-h-60 rounded-md">
                 {items.map((element) => {
                     return <div className="hover:bg-gray-700 p-2 rounded cursor-pointer transition-colors"><span>{element.name}</span></div>
                 })}
-            </div>
+            </div>}
         </div>
     )
 }
