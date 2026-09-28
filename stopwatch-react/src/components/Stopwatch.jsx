@@ -1,20 +1,27 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 function Stopwatch() {
     const [time, setTime] = useState(0)
     const [play, setPlay] = useState(false)
+    // const startTimeRef = useRef(null);
 
     useEffect(() => {
         if (!play) return;
+        
+        // startTimeRef.current = Date.now() - time;
+        // console.log(startTimeRef.current)
+
         const timer = setInterval(() => {
+            // setTime(Date.now() - startTimeRef.current)
             setTime(prev => prev + 1)
         }, 1000)
+
         return () => clearInterval(timer);
     }, [play])
 
-    function updateTimer (sec) {
-        const minutes = String(Math.floor(sec/60)).padStart(2, "0")
-        const seconds = String(Math.floor(sec%60)).padStart(2, "0")
+    function updateTimer(sec) {
+        const minutes = String(Math.floor(sec / 60)).padStart(2, "0")
+        const seconds = String(Math.floor(sec % 60)).padStart(2, "0")
         return `${minutes}:${seconds}`
     }
 
