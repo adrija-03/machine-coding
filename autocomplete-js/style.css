@@ -1,0 +1,13 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+.list-of-food {
+    background: rgb(192, 188, 188);
+    color: black;
+    width: 300px;
+    padding: 10px;
+}
+#foodName {
+    cursor: pointer;
+}
